@@ -31,5 +31,8 @@ class PaymentController extends Controller
         $pnumber = $request->input('pnumber');
         $status = "Success";
         DB::table('prepaid_balance')->where('idorder', $pnumber)->update(['information' =>$status]);
+
+        echo "<center><h3>Thank You ! Your order will be send in a minutes</h3></center>";
+        echo "<a href='/home'>Dashboard</a>";
     }
 }
