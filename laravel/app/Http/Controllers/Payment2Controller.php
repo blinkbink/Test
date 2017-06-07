@@ -44,7 +44,7 @@ class Payment2Controller extends Controller
             foreach ($roles as $name => $check) {
             }
 
-            if ($check != "Success" && $check != "Cancelled" && $check != "Failed by Time") {
+            if (preg_match("/^Shipping/", $check)) {
                 echo "<center><h3>Your Order Already Payed with $check </h3></center>";
                 echo "<a href='/home'>Dashboard</a>";
             }
@@ -63,10 +63,51 @@ class Payment2Controller extends Controller
                 echo "<a href='/home'>Dashboard</a>";
             }
             if ($check == "pending") {
-                DB::table('product')->where('idproduct', $pnumber)->where('idproduct', $pnumber)->update(['information' => $status]);
 
-                echo "<center><h3>Thank You ! Your order will be send in a minutes</h3></center>";
-                echo "<a href='/home'>Dashboard</a>";
+                $timea = '09:00';
+                $timeb = '17:00';
+                $now = date("G:i");
+
+                $array1 = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1);
+                $array2 = array(0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1);
+
+
+                $rand1 = array_rand($array1);
+                $rand2 = array_rand($array2);
+
+                $best = $array1[$rand1];
+                $worst = $array2[$rand2];
+
+                if($now > $timea && $now < $timeb)
+                {
+                    if($best == 0)
+                    {
+                        DB::table('product')->where('idproduct', $pnumber)->where('idproduct', $pnumber)->update(['information' => $status]);
+
+                        echo "<center><h3>Thank You ! Your order will be send in a minutes</h3></center>";
+                        echo "<a href='/home'>Dashboard</a>";
+                    }
+                    else
+                    {
+                        echo "<center><h3>Sorry, Payment Failed, Please Try again</h3></center>";
+                        echo "<a href='/home'>Dashboard</a>";
+                    }
+                }
+                if($now >= $timeb && $now < $timea)
+                {
+                    if($worst == 0)
+                    {
+                        DB::table('product')->where('idproduct', $pnumber)->where('idproduct', $pnumber)->update(['information' => $status]);
+
+                        echo "<center><h3>Thank You ! Your order will be send in a minutes</h3></center>";
+                        echo "<a href='/home'>Dashboard</a>";
+                    }
+                    else
+                    {
+                        echo "<center><h3>Sorry, Payment Failed, Please Try again</h3></center>";
+                        echo "<a href='/home'>Dashboard</a>";
+                    }
+                }
             }
         }
     }
