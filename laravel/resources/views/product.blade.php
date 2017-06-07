@@ -14,9 +14,9 @@
                                 <label for="name" class="col-md-4 control-label">Product</label>
                                 <div class="col-md-6">
                                     <textarea name="product" class="form-control" required autofocus></textarea>
-                                    @if ($errors->has('phone'))
+                                    @if ($errors->has('product'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
+                                        <strong>{{ $errors->first('product') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -26,9 +26,9 @@
                                 <label for="name" class="col-md-4 control-label">Shipping Address</label>
                                 <div class="col-md-6">
                                     <textarea name="address" class="form-control" required></textarea>
-                                    @if ($errors->has('phone'))
+                                    @if ($errors->has('address'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
+                                        <strong>{{ $errors->first('address') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -38,9 +38,9 @@
                                 <label for="name" class="col-md-4 control-label">Price</label>
                                 <div class="col-md-6">
                                     <input type="text" name="price" class="form-control" required>
-                                    @if ($errors->has('phone'))
+                                    @if ($errors->has('price'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
+                                        <strong>{{ $errors->first('price') }}</strong>
                                     </span>
                                     @endif
                                 </div>

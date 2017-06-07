@@ -21,6 +21,13 @@ class PrepaidBalanceController extends Controller
     }
 
     public function insert(Request $request){
+
+        $this->validate($request, [
+            'phone' => 'required|min:7|max:12|regex:/(0)[0-9]{9}/',
+            'value' => 'required',
+        ]);
+
+
         $iduser = $request->input('iduser');
         $phone = $request->input('phone');
         $value = $request->input('value');
@@ -39,7 +46,7 @@ class PrepaidBalanceController extends Controller
         echo "<center><h2>Price : $value</h2></center>";
         echo "<center><h2>Total : $total</h2></center>";
 
-        echo "<center><h3>*Your order will be send after you pay</h3></center><br>";
+        echo "<center><h3>*Your order will be send after you pay. After 5 Minutes Order will be Failed or Cancelled automatically</h3></center><br>";
         echo "<a href='payment'><center><h2>Pay</h2></center></a> <center>or</center> <a href='/home'><center><h4>Dashboard</h4></center></a>";
     }
 

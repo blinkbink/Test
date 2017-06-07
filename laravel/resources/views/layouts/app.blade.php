@@ -38,6 +38,9 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+                        @if (!Auth::user())
+
+                        @else
                         <li>
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 Logout
@@ -47,6 +50,7 @@
                                 {{ csrf_field() }}
                             </form>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </div>

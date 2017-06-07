@@ -31,6 +31,8 @@ Route::post('/productsuccess', 'ProductController@insert')->name('productsuccess
 Route::get('/payment2', 'Payment2Controller@index')->name('payment2');
 Route::post('/pay2', 'Payment2Controller@update')->name('pay2');
 
-Route::get('/history', 'HistoryController@display')->name('history');
+Route::any('/order', 'HistoryController@display')->name('order');
 
-Route::get('/update_history', 'HistoryController@display')->name('update_history');
+//Route::get('/update_history{id}', 'HistoryController@display')->name('update_history');
+Route::get('/cprod', 'Payment2Controller@status')->name('cprod');
+Route::get('/cpre', 'PaymentController@status')->name('cpre');

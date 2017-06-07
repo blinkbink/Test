@@ -9,8 +9,9 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryController extends Controller
 {
@@ -24,18 +25,21 @@ class HistoryController extends Controller
         return view('history');
     }
 
-    public function display()
+    public function display(Request $request)
     {
-        $data['data'] = DB::table('prepaid_balance', 'product')->simplePaginate(10);
-
-        if(count($data) > 0)
+        $id = Auth::user()-> id ;
+        $search = $request->input('search');
+        if($search!=null)
         {
-            return view('history', $data);
+            $prepaid['prepaid'] = DB::table('users')->join('prepaid_balance', 'users.id', 'prepaid_balance.iduser')->where('prepaid_balance.iduser',$id)->where('idorder','like', '%'.$search.'%')->orderby('time', 'DSC')->paginate(20);
+            $product['product'] = DB::table('users')->join('product', 'users.id', 'product.iduser')->where('product.iduser',$id)->where('idproduct','like','%'.$search.'%')->orderby('time', 'DSC')->paginate(20);
         }
-        else
+        if($search==null)
         {
-            return view('history');
+            $prepaid['prepaid'] = DB::table('users')->join('prepaid_balance', 'users.id', 'prepaid_balance.iduser')->where('prepaid_balance.iduser',$id)->orderby('time', 'DSC')->paginate(20);
+            $product['product'] = DB::table('users')->join('product', 'users.id', 'product.iduser')->where('product.iduser',$id)->orderby('time', 'DSC')->paginate(20);
         }
 
+        return view('history', $product, $prepaid);
     }
 }
