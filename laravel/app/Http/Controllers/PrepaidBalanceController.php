@@ -30,7 +30,7 @@ class PrepaidBalanceController extends Controller
         $randnumber = rand(0000000000, 9999999999);
 
 
-        $data = array('idorder'=>$randnumber,'iduser'=>$iduser, 'phone'=>$phone, 'valuee'=>$total, 'description'=>$description, 'information'=>$information);
+        $data = array('idorder'=>$randnumber,'iduser'=>$iduser, 'phone'=>$phone, 'valuee'=>$value, 'description'=>$description, 'information'=>$information, 'total'=>$total);
 
         DB::table('prepaid_balance')->insert($data);
 
