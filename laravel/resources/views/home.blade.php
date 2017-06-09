@@ -9,9 +9,6 @@
                 <div class="panel-body">
                     <h5>Welcome {{ Auth::user()->name }}</h5>
                     <br>
-                    <h5>Menu</h5>
-                    <a href="{{ route('prepaid-balance') }}">Buy Prepaid Balance</a> || <a href="{{ route('product') }}">Looking Product</a> || <a href="{{ route('order') }}">Order History</a>
-                </div>
             </div>
         </div>
     </div>

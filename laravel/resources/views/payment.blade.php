@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Payment Prepaid Balance|| <a href="{{ route('home') }}">Back</a> To Dashboard</div>
+                    <div class="panel-heading">Payment Product || <a href="home">Back</a> To Dashboard</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('pay') }}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ route('pay2') }}">
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Order Number

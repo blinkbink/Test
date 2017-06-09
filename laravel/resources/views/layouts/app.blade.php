@@ -52,6 +52,32 @@
                         </li>
                         @endif
                     </ul>
+                    <ul class="nav navbar-nav navbar-left">
+                        <!-- Authentication Links -->
+                        @if (!Auth::user())
+                        @else
+                            <li>
+                                <a href="home">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="prepaid-balance">
+                                    Prepaid Balance
+                                </a>
+                            </li>
+                            <li>
+                                <a href="product">
+                                    Product
+                                </a>
+                            </li>
+                            <li>
+                                <a href="order">
+                                    Order History
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
                 </div>
             </div>
         </nav>

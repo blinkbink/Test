@@ -60,8 +60,7 @@ class PaymentController extends Controller
 
             $array1 = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1);
             $array2 = array(0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1);
-
-
+            
             $rand1 = array_rand($array1);
             $rand2 = array_rand($array2);
 

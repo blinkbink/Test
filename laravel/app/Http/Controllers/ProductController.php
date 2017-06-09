@@ -1,34 +1,39 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: asass
- * Date: 06/06/2017
- * Time: 6:55
- */
 
 namespace App\Http\Controllers;
 
-
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\ProductModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 
 class ProductController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs;
     /**
-     * Create a new controller instance.
+     * Display a listing of the resource.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function index()
     {
-        $this->middleware('auth');
+        return view("product.product");
     }
 
-    public function insert(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function store(Request $request)
     {
         $this->validate($request, [
             'product' => 'required|min:10|max:150',
@@ -36,35 +41,66 @@ class ProductController extends Controller
             'price' => 'required|numeric',
         ]);
 
-        $product = $request->input('product');
-        $address = $request->input('address');
-        $price = $request->input('price');
-        $iduser = $request->input('iduser');
+        $rand = rand(0000000000, 9999999999);
 
-        $total = $price + 10000;
-        $information = "pending";
-        $description = $product . " that cost " . $price;
-        $randnumber = rand(0000000000, 9999999999);
+        $product = new ProductModel();
+        $product-> idproduct = $rand;
+        $product-> iduser = $request->input('iduser');
+        $product-> name_product = $request->input('product');
+        $product-> address = $request->input('address');
+        $product-> price = $request->input('price');
+        $product-> total = $request->input('price') + 10000;
+        $product-> description = $request->input('product'). " That Cost ". $request->input('price');
+        $product-> information = "Pending";
 
-        $data = array('idproduct' => $randnumber, 'iduser' => $iduser, 'name_product' => $product, 'address' => $address, 'price' => $price, 'total' => $total, 'description' => $description, 'information' => $information);
+        $product->save();
 
-        DB::table('product')->insert($data);
-
-        echo "<center><h2>Your Order Number : $randnumber</h2></center>";
-        echo "<center><h2>For Product : $product</h2></center>";
-        echo "<center><h2>Price : $price</h2></center>";
-        echo "<center><h2>Total : $total</h2></center>";
-
-        echo "<center><h3>*Your order will be send after you pay. After 5 Minutes Order will be Failed or Cancelled automatically</h3></center><br>";
-        echo "<a href='payment2'><center><h2>Pay</h2></center></a> <center>or</center> <a href='/home'><center><h4>Dashboard</h4></center></a>";
+        return view("product.review")->with(array('ordernumber'=>$rand, 'total'=> $request->input('price') + 10000, 'product'=>$request->input('product'), 'price'=>$request->input('price')
+        ));
     }
+
     /**
-     * Show the application dashboard.
+     * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show($id)
     {
-        return view('product');
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }
