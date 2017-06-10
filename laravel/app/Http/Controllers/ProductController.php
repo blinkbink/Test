@@ -44,7 +44,7 @@ class ProductController extends Controller
         $rand = rand(0000000000, 9999999999);
 
         $product = new ProductModel();
-        $product-> idproduct = $rand;
+        $product-> id = $rand;
         $product-> iduser = $request->input('iduser');
         $product-> name_product = $request->input('product');
         $product-> address = $request->input('address');
@@ -78,7 +78,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit = ProductModel::find($id);
+        return view('product.payment2', compact('edit'));
     }
 
     /**
@@ -88,9 +89,52 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $ordernumber = $request->input('ordernumber');
+        $array90 = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1);
+        $array40 = array(0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1);
+
+        $rand1 = array_rand($array90);
+        $rand2 = array_rand($array40);
+
+        $best = $array90[$rand1];
+        $worst = $array40[$rand2];
+
+        $edit = ProductModel::find($ordernumber);
+
+        if(date("G:i") > '09:00' && date("G:i") < '17:00')
+        {
+            if($best == 0)
+            {
+                if($edit->information == "Pending")
+                {
+                    $edit ->information = "Success";
+                    $edit->save();
+                }
+            }
+            else
+            {
+                return view('status', compact('edit'));
+            }
+        }
+        if(date("G:i") > '17:00' && date("G:i") < '09:00')
+        {
+            if($worst == 0)
+            {
+                if($edit->information == "Pending")
+                {
+                    $edit ->information = "Success";
+                    $edit->save();
+                }
+            }
+            else
+            {
+                return view('status', compact('edit'));
+            }
+        }
+
+        return view('status', compact('edit'));
     }
 
     /**

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\PrepaidModel;
+use App\ProductModel;
 use App\User;
 use App\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 class OrderController extends Controller
@@ -17,10 +19,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-       $user = PrepaidModel::all();
+       //$User = User::all()->where('iduser', Auth::user()->id);
+       $User = User::all();
 
-       return View::make('order.order')->with('user', $user);
-       //return view("order.order", $user);
+       return view('order.order', compact('User'));
+       //return View::make('order.order')->with('User', $User);
     }
 
     /**

@@ -3,17 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Model
 {
     protected $table = "users";
     protected $fillable = ['id', 'name', 'email', 'password', 'remember_token'];
 
-
-    public function Prepaid()
+    public function product()
     {
-        //return PrepaidModel::where('iduser', $this->id)->pluck('idorder');
-        //return $this->hasOne('App\PrepaidModel');
+        //return $this->belongsTo('App\ProductModel');
+        //return ProductModel::where('iduser', Auth::user()->id)->get();
+        //return $this->hasMany('App\ProductModel')->select(array('id'));
+        return $this->hasMany('App\ProductModel');
     }
-
 }

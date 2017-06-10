@@ -50,12 +50,11 @@
                                 {{ csrf_field() }}
                             </form>
                         </li>
-                        @endif
+
                     </ul>
                     <ul class="nav navbar-nav navbar-left">
                         <!-- Authentication Links -->
-                        @if (!Auth::user())
-                        @else
+
                             <li>
                                 <a href="home">
                                     Home

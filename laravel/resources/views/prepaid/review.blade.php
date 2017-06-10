@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <a class="btn btn-default" href="payment"></a>
+                                    <a class="btn btn-default" href="prepay/{{$ordernumber}}">Pay</a>
                                 </div>
                             </div>
                     </div>

@@ -29,13 +29,12 @@
                                <td>Information</td>
                            </tr>
 
-                           @foreach($user as $item)
+                           @foreach($User as $item)
                                <tr>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td>{{$item -> Prepaid()}}</td>
+                                   <td>{{$item -> product -> iduser}}</td>
+                                   <td>{{$item -> description}}</td>
+                                   <td>{{$item -> total}}</td>
+                                   <td>{{$item -> information}}</td>
                                </tr>
                            @endforeach
                        </table>

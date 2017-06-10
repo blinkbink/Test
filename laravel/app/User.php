@@ -27,9 +27,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function Prepaid()
+
+    public function product()
     {
-        return PrepaidModel::where('iduser', $this->id)->first()->id;
-        //return $this->belongsTo('App\User');
+        return $this->belongsTo('App\ProductModel');
+    }
+
+    public function prepaid()
+    {
+        return $this->belongsTo('App\PrepaidModel');
     }
 }

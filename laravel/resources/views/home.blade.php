@@ -7,8 +7,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
                 <div class="panel-body">
+                    @if(!Auth::user())
+                        {{ redirect ('login')}}
+                    @else
                     <h5>Welcome {{ Auth::user()->name }}</h5>
                     <br>
+                    @endif
             </div>
         </div>
     </div>

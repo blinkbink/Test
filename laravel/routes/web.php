@@ -17,31 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
 //Index
 Route::get('/home', 'HomeController@index');
 Route::get('/prepaid-balance', 'PrepaidController@index');
 Route::get('/product', 'ProductController@index');
-Route::any('/order', 'OrderController@index');
+Route::get('/order', 'OrderController@index');
 
 
 //Review & Store Data
 Route::post('/prereview', 'PrepaidController@store');
 Route::post('/proreview', 'ProductController@store');
 
+//Update Payment Prepaid
+Route::any('/prepay/{id}', 'PrepaidController@edit');
+Route::any('/payment', 'PrepaidController@update');
 
-
-Route::post('/success', 'PrepaidBalanceController@insert')->name('prepaid-balance-success');
-Route::post('/productsuccess', 'ProductController@insert')->name('productsuccess');
-
-Route::get('/payment', 'PaymentController@index')->name('payment');
-Route::post('/pay', 'PaymentController@update')->name('pay');
-
-
-
-Route::get('/payment2', 'Payment2Controller@index')->name('payment2');
-Route::post('/pay2', 'Payment2Controller@update')->name('pay2');
-
-
-Route::get('/cprod', 'Payment2Controller@status')->name('cprod');
-Route::get('/cpre', 'PaymentController@status')->name('cpre');
+//Update Payment Product
+Route::any('/propay/{id}', 'ProductController@edit');
+Route::any('/payment2', 'ProductController@update');

@@ -48,7 +48,7 @@ class PrepaidController extends Controller
         $nominal = $request->input('nominal');
 
         $prepaid = new PrepaidModel();
-        $prepaid-> idorder = $rand;
+        $prepaid-> id = $rand;
         $prepaid-> iduser = $request->input('iduser');
         $prepaid-> phone = $request->input('phone');
         $prepaid-> nominal = $request->input('nominal');
@@ -81,6 +81,8 @@ class PrepaidController extends Controller
     public function edit($id)
     {
         //
+        $edit = PrepaidModel::find($id);
+        return view('prepaid.payment', compact('edit'));
     }
 
     /**
@@ -90,9 +92,52 @@ class PrepaidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $ordernumber = $request->input('ordernumber');
+        $array90 = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1);
+        $array40 = array(0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1);
+
+        $rand1 = array_rand($array90);
+        $rand2 = array_rand($array40);
+
+        $best = $array90[$rand1];
+        $worst = $array40[$rand2];
+
+        $edit = PrepaidModel::find($ordernumber);
+
+        if(date("G:i") > '09:00' && date("G:i") < '17:00')
+        {
+            if($best == 0)
+            {
+                if($edit->information == "Pending")
+                {
+                    $edit ->information = "Success";
+                    $edit->save();
+                }
+            }
+            else
+            {
+                return view('status', compact('edit'));
+            }
+        }
+        if(date("G:i") > '17:00' && date("G:i") < '09:00')
+        {
+            if($worst == 0)
+            {
+                if($edit->information == "Pending")
+                {
+                    $edit ->information = "Success";
+                    $edit->save();
+                }
+            }
+            else
+            {
+                return view('status', compact('edit'));
+            }
+        }
+
+        return view('status', compact('edit'));
     }
 
     /**
